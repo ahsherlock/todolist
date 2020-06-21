@@ -1,8 +1,8 @@
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.forms import User
-from django.contrib.auth import login
+from django.contrib.auth import login, logout, authenticate
 # Create your views here.
 def signupuser(request):
     if request.method == "GET":
@@ -25,5 +25,28 @@ def signupuser(request):
             #Tell them that the passwords dont match
             return render(request, 'todo/signupuser.html', {'form': UserCreationForm(), 'error': 'The passwords do not match.'})
 
+def home(request):
+    return render(request, 'todo/home.html')
+
+
 def currenttodos(request):
     return render(request, 'todo/currenttodos.html')
+
+
+def logoutuser(request):
+    #ABSOLUTELY NEEDED ELSE browsers will automatically log users out.
+    # Something to do with the way browsers preload "GET" requests
+    if request.method == 'POST':
+        logout(request)
+        return redirect('home')
+
+def loginuser(request):
+    if request.method == 'GET':
+        return render(request, 'todo/loginuser.html', {'form': AuthenticationForm()})
+    else:
+        user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
+        if user is None:
+            return render(request,'todo/loginuser.html',{'form': AuthenticationForm(),'error':'Username and password did not match.'})
+        else:
+            login(request, user)
+            return redirect('currenttodos')
