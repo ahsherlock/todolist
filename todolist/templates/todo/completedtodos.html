@@ -2,12 +2,15 @@
 
 {% block content %}
 
+    Completed To-Dos
+
 <ul>
     {% for todo in todos %}
     <li>
         <a href = "{% url 'viewtodo'  todo.id %}">
             {% if todo.important %}<b>{% endif %}{{ todo.title }}{% if todo.important %}</b>{% endif %}
             {% if todo.memo %} - {{  todo.memo }} {% endif %}
+            {{ todo.datecompleted|date:'M j Y H:i' }}
         </a>
     </li>
     {% endfor %}
