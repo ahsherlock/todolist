@@ -1,7 +1,19 @@
-{% extends 'todo/base.html' %}
+{% extends "todo/base.html" %}
 
 {% block content %}
-
-We've made it to the home page!
+<br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+<div class="row justify-content-center mt-5">
+        <div class="col-md-7 text-center">
+            <h1 class="justify-content-center">Here's your own personal Sh*t List</h1>
+            <br>
+            <p>Life is fun. But life is also full of sh*t. There's so much different shit that you could be doing. But what matters is <u>what</u> shit you do. I created <b><i>The Sh*T List</i></b> to help you make sense of all of your shit and live that life that matters most to you. Your new organized life awaits.</p>
+        <a role="button" class="btn btn-primary btn-lg" href="{% url 'signupuser' %}">Start</a>
+        </div>
+    </div>
 
 {% endblock %}
